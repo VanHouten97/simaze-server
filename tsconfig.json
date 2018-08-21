@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "removeComments": true,
+        "module": "commonJS",
+        "outDir": "dist",
+        "target": "es6",
+        "moduleResolution": "node",
+        "baseUrl": "src",
+        "paths": {
+            "@lib/*": ["lib/*"]
+        }
+    },
+    "include": ["src/**/*.ts"]
+}
