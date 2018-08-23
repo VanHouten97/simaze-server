@@ -1,49 +1,72 @@
-import validator = require('@lib/validators/user.validator');
+import { User, Error } from '@interfaces';
+import * as validator from '@validators/user';
 
 class Users {
-    addUser() {
+    static addUser() {
 
     }
 
-    validateFields(info: object): object {
-        let o = {};
+    private static validateFields(info: User): User|Error {
+        let o: Error;
+        let i: User = {};
 
         // Verificar nome completo
-        if (!o.err && info.fullname)
+        if (!o && info.fullname)
             validator.fullname(info.fullname, (res, err) => {
                 if (err) { o = err; return; }
-                o.fullname = res.data;
+                i.fullname = res;
             });
         // Verificar nome de exibição
-        if (!o.err && info.nickname)
+        if (!o && info.nickname)
             validator.nickname(info.nickname, (res, err) => {
                 if (err) { o = err; return; }
-                o.nickname = res.data;
+                i.nickname = res;
             });
         // Verificar cpf
-        if (!o.err && info.cpf)
+        if (!o && info.cpf)
             validator.cpf(info.cpf, (res, err) => {
                 if (err) { o = err; return; }
-                o.cpf = res.data;
+                i.cpf = res;
             });
         // Verificar email
-        if (!o.err && info.cpf)
-            validator.cpf(info.cpf, (res, err) => {
+        if (!o && info.email)
+            validator.email(info.email, (res, err) => {
                 if (err) { o = err; return; }
-                o.cpf = res.data;
+                i.email = res;
             });
         // Verificar senha
-        if (!o.err && info.password)
+        if (!o && info.password)
             validator.password(info.password, (res, err) => {
                 if (err) { o = err; return; }
-                o.password = res.data;
+                i.password = res;
             });
         // Verificar cargo
-        if (!o.err && info.role)
+        if (!o && info.role)
             validator.role(info.role, (res, err) => {
                 if (err) { o = err; return; }
-                o.role = res.data;
+                i.role = res;
             });
+        // Verificar matricula
+        if (!o && info.registry)
+            validator.registry(info.registry, (res, err) => {
+                if (err) { o = err; return; }
+                i.registry = res;
+            });
+        // Verificar nascimento
+        if (!o && info.birth)
+            validator.birth(info.birth, (res, err) => {
+                if (err) { o = err; return; }
+                i.birth = res;
+            });
+        // Verificar nascimento
+        if (!o && info.birth)
+            validator.birth(info.birth, (res, err) => {
+                if (err) { o = err; return; }
+                i.birth = res;
+            });
+
+        if (o) return o;
+        return i;
     }
 }
 

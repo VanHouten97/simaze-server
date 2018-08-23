@@ -13,8 +13,17 @@
     "morgan": "^1.9.0",
     "validator": "^10.6.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/bcrypt": "^2.0.0",
+    "@types/express": "^4.16.0",
+    "@types/jwt-simple": "^0.5.33",
+    "@types/morgan": "^1.7.35",
+    "@types/validator": "^9.4.1"
+  },
   "_moduleAliases": {
-      "@lib": "dist/lib"
+    "@lib": "dist/lib",
+    "@interfaces": "dist/lib/interfaces",
+    "@validators": "dist/lib/validators",
+    "@tools": "dist/lib/tools"
   }
 }
