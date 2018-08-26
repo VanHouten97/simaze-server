@@ -10,7 +10,8 @@
             "@lib/*": ["lib/*"],
             "@interfaces": ["lib/interfaces"],
             "@validators/*": ["lib/validators/*"],
-            "@tools/*": ["lib/tools/*"]
+            "@tools/*": ["lib/tools/*"],
+            "@api/*": ["lib/api/*"]
         }
     },
     "include": ["src/**/*.ts"]

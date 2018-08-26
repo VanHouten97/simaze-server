@@ -12,26 +12,29 @@ import {
 
 export function fullname(item: string, cb: (res: string, err: Error) => void): void {
     let tmp = item.trim();
+
     if (tmp.length < 10 || tmp.length > 60) {
         cb(null, e(0x00001));
         return;
     }
-    tmp = tmp.replace(' ', '');
-    if (isAlpha(tmp, 'pt-BR')) {
+
+    tmp = tmp.replace(/( )/g, '');
+
+    if (!isAlpha(tmp, 'pt-BR')) {
         cb(null, e(0x00002));
         return;
     }
 
-    cb(UCFirst(item.trim().toLowerCase()), null);
+    cb(UCFirst(item.trim()), null);
 };
 
 export function cpf(item: string, cb: (res: string, err: Error) => void): void {
-    let tmp = item.trim().replace('.','').replace('-', '');
+    let tmp = item.trim().replace(/(\.|-)/g,'')
     if (tmp.length !== 11) {
         cb(null, e(0x00003));
         return;
     }
-    if (isNumeric(tmp)) {
+    if (!isNumeric(tmp)) {
         cb(null, e(0x00004));
         return;
     }
@@ -44,7 +47,7 @@ export function email(item: string, cb: (res: string, err: Error) => void): void
         cb(null, e(0x00005));
         return;
     }
-    if (isEmail(tmp)) {
+    if (!isEmail(tmp)) {
         cb(null, e(0x00006));
         return;
     }
@@ -53,16 +56,16 @@ export function email(item: string, cb: (res: string, err: Error) => void): void
 
 export function nickname(item: string, cb: (res: string, err: Error) => void): void {
     let tmp = item.trim();
-    if (tmp.length < 5 || tmp.length > 15) {
+    if (tmp.length < 5 || tmp.length > 20) {
         cb(null, e(0x00007));
         return;
     }
-    tmp = tmp.replace(' ', '');
-    if (isAlpha(tmp, 'pt-BR')) {
+    tmp = tmp.replace(/( )/g, '');
+    if (!isAlpha(tmp, 'pt-BR')) {
         cb(null, e(0x00008));
         return;
     }
-    cb(UCFirst(item.trim().toLowerCase()), null);
+    cb(UCFirst(item.trim()), null);
 };
 
 export function date(item: string, cb: (res: string, err: Error) => void): void {
@@ -86,7 +89,7 @@ export function birth(item: string, cb: (res: string, err: Error) => void): void
 
 export function phone(item: string, cb: (res: string, err: Error) => void): void {
     let tmp = item.trim();
-    if (isMobilePhone(tmp, 'any')) {
+    if (!isMobilePhone(tmp, 'any')) {
         cb(null, e(0x0000B));
         return;
     }
@@ -99,12 +102,12 @@ export function role(item: string, cb: (res: string, err: Error) => void): void 
         cb(null, e(0x0000C));
         return;
     }
-    tmp = tmp.replace(' ', '');
-    if (isAlphanumeric(tmp, 'pt-BR')) {
+    tmp = tmp.replace(/( )/g, '');
+    if (!isAlphanumeric(tmp, 'pt-BR')) {
         cb(null, e(0x0000D));
         return;
     }
-    cb(item.trim().toLowerCase(), null);
+    cb(UCFirst(item.trim()), null);
 };
 
 export function admission(item: string, cb: (res: string, err: Error) => void): void {
@@ -132,7 +135,7 @@ export function gender(item: string, cb: (res: string, err: Error) => void): voi
         cb(null, e(0x00010));
         return;
     }
-    cb(item.trim().toLowerCase(), null);
+    cb(item.trim().toUpperCase(), null);
 };
 
 export function state(item: string, cb: (res: string, err: Error) => void): void {
@@ -141,7 +144,7 @@ export function state(item: string, cb: (res: string, err: Error) => void): void
         cb(null, e(0x00011));
         return;
     }
-    cb(item.trim().toLowerCase(), null);
+    cb(item.trim().toUpperCase(), null);
 };
 
 export function city(item: string, cb: (res: string, err: Error) => void): void {
@@ -150,12 +153,12 @@ export function city(item: string, cb: (res: string, err: Error) => void): void 
         cb(null, e(0x00012));
         return;
     }
-    tmp = tmp.replace(' ', '');
-    if (isAlpha(tmp, 'pt-BR')) {
+    tmp = tmp.replace(/( )/g, '');
+    if (!isAlpha(tmp, 'pt-BR')) {
         cb(null, e(0x00013));
         return;
     }
-    cb(item.trim().toLowerCase(), null);
+    cb(UCFirst(item.trim()), null);
 };
 
 export function district(item: string, cb: (res: string, err: Error) => void): void {
@@ -164,12 +167,12 @@ export function district(item: string, cb: (res: string, err: Error) => void): v
         cb(null, e(0x00014));
         return;
     }
-    tmp = tmp.replace(' ', '');
-    if (isAlpha(tmp, 'pt-BR')) {
+    tmp = tmp.replace(/( )/g, '');
+    if (!isAlpha(tmp, 'pt-BR')) {
         cb(null, e(0x00015));
         return;
     }
-    cb(item.trim().toLowerCase(), null);
+    cb(UCFirst(item.trim()), null);
 };
 
 export function street(item: string, cb: (res: string, err: Error) => void): void {
@@ -178,35 +181,48 @@ export function street(item: string, cb: (res: string, err: Error) => void): voi
         cb(null, e(0x00016));
         return;
     }
-    tmp = tmp.replace(' ', '');
-    if (isAlpha(tmp, 'pt-BR')) {
+    tmp = tmp.replace(/( )/g, '');
+    if (!isAlpha(tmp, 'pt-BR')) {
         cb(null, e(0x00017));
         return;
     }
-    cb(item.trim().toLowerCase(), null);
+    cb(UCFirst(item.trim()), null);
 };
 
-export function address(item: string, cb: (res: string, err: Error) => void): void {
+export function address(item: string, cb: (res: number, err: Error) => void): void {
     let tmp = item.trim();
     if (tmp.length > 11) {
         cb(null, e(0x00018));
         return;
     }
-    if (isAlphanumeric(tmp, 'pt-BR')) {
+    if (!isNumeric(tmp)) {
         cb(null, e(0x00019));
         return;
     }
-    cb(item.trim().toLowerCase(), null);
+    cb(parseInt(tmp), null);
 };
 
-export function zipCode(item: string, cb: (res: string, err: Error) => void): void {
-    let tmp = item.trim().replace('-', '');
-    if (tmp.length !== 8) {
+export function complement(item: string, cb: (res: string, err: Error) => void): void {
+    let tmp = item.trim();
+    if (tmp.length > 11) {
         cb(null, e(0x0001A));
         return;
     }
-    if (isNumeric(tmp)) {
+    if (!isAlphanumeric(tmp)) {
         cb(null, e(0x0001B));
+        return;
+    }
+    cb(tmp.toUpperCase(), null);
+};
+
+export function zipCode(item: string, cb: (res: string, err: Error) => void): void {
+    let tmp = item.trim().replace(/(-)/g, '');
+    if (tmp.length !== 8) {
+        cb(null, e(0x0001C));
+        return;
+    }
+    if (!isNumeric(tmp)) {
+        cb(null, e(0x0001D));
         return;
     }
     cb(tmp, null);
@@ -215,8 +231,13 @@ export function zipCode(item: string, cb: (res: string, err: Error) => void): vo
 export function password(item: string, cb: (res: string, err: Error) => void): void {
     let tmp = item.trim();
     if (tmp.length > 40) {
-        cb(null, e(0x0001C));
+        cb(null, e(0x0001E));
         return;
     }
     cb(item.trim().toLowerCase(), null);
+};
+
+export function enabled(item: string, cb: (res: boolean, err: Error) => void): void {
+    if (item.trim() === '1') return cb(true, null);
+    return cb(false, null);
 };

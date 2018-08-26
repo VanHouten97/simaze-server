@@ -5,7 +5,7 @@ export const database = {
     port: 27017,
     dbName: 'simaze',
     dbUser: 'fl0ppy',
-    dbPass: 'zootek@2018'
+    dbPass: 'zootek%402018'
 };
 
 export const secret = 'zootek2018@smz';
@@ -28,7 +28,7 @@ export function err(e: number, d?: any): Error {
         case 0x00004: return model(e, { msg: 'CPF deve conter apenas numeros' });
         case 0x00005: return model(e, { msg: 'Email deve estar entre 5-40 caracteres.' });
         case 0x00006: return model(e, { msg: 'Email inválido.' });
-        case 0x00007: return model(e, { msg: 'Nome de exibição deve conter entre 5-15 caracteres.' });
+        case 0x00007: return model(e, { msg: 'Nome de exibição deve conter entre 5-20 caracteres.' });
         case 0x00008: return model(e, { msg: 'Nome de exibição não pode conter numeros ou caracteres especiais.' });
         case 0x00009: return model(e, { msg: 'Data inválida.' });
         case 0x0000A: return model(e, { msg: 'Data de nascimento inválida.' });
@@ -46,10 +46,12 @@ export function err(e: number, d?: any): Error {
         case 0x00016: return model(e, { msg: 'Rua deve conter entre 3-40 caracteres.' });
         case 0x00017: return model(e, { msg: 'Rua não pode conter numeros ou caracteres especiais.' });
         case 0x00018: return model(e, { msg: 'Endereço n° deve conter menos de 12 caracteres.' });
-        case 0x00019: return model(e, { msg: 'Endereço n° não pode conter numeros ou caracteres especiais.' });
-        case 0x0001A: return model(e, { msg: 'CEP deve conter 8 caracteres.' });
-        case 0x0001B: return model(e, { msg: 'CEP° deve ser numérico.' });
-        case 0x0001C: return model(e, { msg: 'Senha muito grande.' });
-        case 0x0001D: return model(e, { msg: 'Informações obrigatórias não preenchidas.' });
+        case 0x00019: return model(e, { msg: 'Endereço n° deve ser um numero' });
+        case 0x0001A: return model(e, { msg: 'Complemento deve conter menos de 10 caracteres.' });
+        case 0x0001B: return model(e, { msg: 'Complemento não pode conter caracteres especiais.' });
+        case 0x0001C: return model(e, { msg: 'CEP deve conter 8 caracteres.' });
+        case 0x0001D: return model(e, { msg: 'CEP° deve ser numérico.' });
+        case 0x0001E: return model(e, { msg: 'Senha muito grande.' });
+        case 0x0001F: return model(e, { msg: 'Informações obrigatórias não preenchidas.' });
     }
 }

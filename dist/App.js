@@ -1,22 +1,23 @@
-require('module-alias/register');
+require("module-alias/register");
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express = require("express");
 const morgan = require("morgan");
-const bodyParser = require("body-parser");
-const validator = require("@lib/validators/user.validator");
+const body_parser_1 = require("body-parser");
+const routes_1 = require("@lib/routes");
+const port = 3050;
 class App {
     constructor() {
         this.app = express();
-        this.app.use(bodyParser.urlencoded({ extended: false }));
-        this.app.use(bodyParser.json());
+        this.app.use(body_parser_1.urlencoded({ extended: false }));
+        this.app.use(body_parser_1.json());
         this.app.use(morgan('dev'));
+        routes_1.apiRoutes(this.app);
+    }
+    listen(port) {
+        this.app.listen(port);
+        console.log(`Listening on port: ${port}`);
     }
 }
-new App();
-validator.zipCode('35702-513', (res, err) => {
-    if (err)
-        console.log(err);
-    if (res)
-        console.log(res);
-});
+let app = new App();
+app.listen(port);

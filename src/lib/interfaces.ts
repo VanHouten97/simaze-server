@@ -11,6 +11,7 @@ export interface User {
     email?: string,
     password?: string,
     role?: string,
+    admission?: string,
     registry?: string,
     birth?: string,
     phone?: {
@@ -18,12 +19,15 @@ export interface User {
         mobile?: string,
     },
     gender?: string,
-    living?: {
-        state?: string,
-        city?: string,
-        district?: string,
-        street?: string,
-        number?: string,
-        zip?: string
-    }
+    living?: Address
+}
+
+export interface Address {
+    state?: string,
+    city?: string,
+    district?: string,
+    street?: string,
+    number?: number,
+    complement?: string,
+    zip?: string
 }
